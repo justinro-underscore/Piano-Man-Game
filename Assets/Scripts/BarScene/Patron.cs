@@ -1,29 +1,27 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Patron : MonoBehaviour {
     public string patronName;
 
     private Collider2D patronCollider;
 
+    public delegate void OpenDialogueHandler( string patronName );
+    public event OpenDialogueHandler onOpenDialogue;
+
     void Awake() {
         patronCollider = GetComponent<Collider2D>();
     }
 
-    void OnMouseEnter()
-    {
+    void OnMouseEnter() {
         Debug.Log("Enter " + patronName);
     }
 
-    void OnMouseExit()
-    {
+    void OnMouseExit() {
         Debug.Log("Exit " + patronName);
     }
 
-    void OnMouseDown()
-    {
-        Debug.Log("Test " + patronName);
-        SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+    void OnMouseDown() {
+        onOpenDialogue(patronName);
     }
 }
