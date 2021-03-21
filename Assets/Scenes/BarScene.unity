@@ -257,7 +257,7 @@ PrefabInstance:
     - target: {fileID: 3644172037421647427, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
       propertyPath: patronName
-      value: Mary
+      value: Paul
       objectReference: {fileID: 0}
     - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
@@ -266,22 +266,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
+        type: 3}
       propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 410687969
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647429, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_Offset.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -360,50 +350,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186897963}
   m_CullTransparentMesh: 0
---- !u!1 &252139506
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 252139508}
-  - component: {fileID: 252139507}
-  m_Layer: 0
-  m_Name: PersistentData
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &252139507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252139506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3f3165e62919e340ab5d2254b8d8e13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patronName: 
---- !u!4 &252139508
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 252139506}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2339733, y: 0.0063162306, z: 126.41382}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &252717612
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +614,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1178532234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1178532236}
+  - component: {fileID: 1178532235}
+  m_Layer: 0
+  m_Name: ScenesRunner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1178532235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178532234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f3165e62919e340ab5d2254b8d8e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currScene: 
+--- !u!4 &1178532236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178532234}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2339733, y: 0.0063162306, z: 126.41382}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1512328370
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +907,7 @@ PrefabInstance:
     - target: {fileID: 3644172037421647427, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
       propertyPath: patronName
-      value: Doug
+      value: Paul
       objectReference: {fileID: 0}
     - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
@@ -933,21 +923,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 410687969
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647429, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a6cff72ebac60048914385e4350dce3, type: 3}
@@ -1018,25 +993,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647426, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647426, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647426, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3644172037421647427, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
       propertyPath: patronName
       value: Bartender Joe
+      objectReference: {fileID: 0}
+    - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
@@ -1046,21 +1011,6 @@ PrefabInstance:
     - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
       propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 410687969
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3644172037421647429, guid: 6a6cff72ebac60048914385e4350dce3,
-        type: 3}
-      propertyPath: m_Offset.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

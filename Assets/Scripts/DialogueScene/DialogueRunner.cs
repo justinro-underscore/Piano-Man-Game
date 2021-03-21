@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using static DialogueObject;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using System;
 using System.Runtime.InteropServices;
 
@@ -28,7 +27,7 @@ public class DialogueRunner : MonoBehaviour {
 
     private void OnNodeEntered( Node newNode ) {
         if (newNode.IsEndNode()) {
-            ExitDialogue();
+            ExitDialogue(true);
             return;
         }
 
@@ -39,10 +38,10 @@ public class DialogueRunner : MonoBehaviour {
             }
         }
 
-        textRunner.Init(PersistentData.data.patronName, "f00", newNode.text, responses);
+        textRunner.Init(ScenesRunner.instance.data.patronName, "f00", newNode.text, responses);
     }
 
-    public void ExitDialogue() {
-        SceneManager.UnloadSceneAsync("DialogueScene");
+    public void ExitDialogue(bool completed) {
+        ScenesRunner.instance.CloseDialogueScene(completed);
     }
 }

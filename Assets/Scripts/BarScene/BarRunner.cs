@@ -1,22 +1,31 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class BarRunner : MonoBehaviour {
     public GameObject patronsContainer;
     public Image overlay;
 
+    private Patron selectedPatron = null;
+
     private void Start() {
+        ScenesRunner.instance.onCloseDialogue += OnCloseDialogue;
         foreach (Patron patron in patronsContainer.GetComponentsInChildren(typeof(Patron))) {
             patron.onOpenDialogue += OnOpenDialogue;
         }
     }
 
-    private void OnOpenDialogue(string patronName) {
-        Debug.Log("Clicked on " + patronName);
+    private void OnOpenDialogue(Patron patron) {
+        selectedPatron = patron;
         overlay.color = new Color(0, 0, 0, 0.5f);
-        PersistentData.data.patronName = patronName;
-        SceneManager.LoadScene("DialogueScene", LoadSceneMode.Additive);
+        ScenesRunner.instance.OpenDialogueScene(patron.patronName);
+    }
+
+    private void OnCloseDialogue(bool completed) {
+        overlay.color = new Color(0, 0, 0, 0);
+        if (completed) {
+            selectedPatron.DisablePatron();
+        }
+        selectedPatron = null;
     }
 }
