@@ -23,6 +23,14 @@ public class DialogueObject {
         public List<string> tags;
         public List<Response> responses;
 
+        internal bool NeedsResponse() {
+            if (responses.Count != 1) {
+                return true;
+            }
+            Response response = responses[0];
+            return !response.destinationNode.Equals(response.displayText);
+        }
+
         internal bool IsEndNode() {
             return tags.Contains( kEnd );
         }
@@ -77,6 +85,8 @@ public class DialogueObject {
                     : "";
                 curNode.tags = new List<string>( tags.Split( new string [] { " " }, StringSplitOptions.None ) );
 
+                curNode.responses = new List<Response>();
+
                 if (!tags.Contains( kEnd )) {
                     int startOfResponses = -1;
                     int startOfResponseDestinations = currLineText.IndexOf( "[[" );
@@ -100,7 +110,6 @@ public class DialogueObject {
                     // Note: response messages are optional (if no message then destination is the message)
                     // With Message Format: "\n Message[[Response One]]"
                     // Message-less Format: "\n [[Response One]]"
-                    curNode.responses = new List<Response>();
                     List<string> responseData = new List<string>(responseText.Split( new string [] { "\n" }, StringSplitOptions.None ));
                     for ( int k = responseData.Count-1; k >= 0; k-- ) { // Go backwards to remove potential duds
                         string curResponseData = responseData[k];
@@ -124,6 +133,15 @@ public class DialogueObject {
                     }
                     curNode.responses.Reverse();
                 }
+
+                // string tt = curNode.title + "\n" + curNode.text + "\n";
+                // foreach (string t in curNode.tags) {
+                //     tt += t + "\n";
+                // }
+                // foreach (Response r in curNode.responses) {
+                //     tt += r.displayText + " : " + r.destinationNode + "\n";
+                // }
+                // Debug.Log(tt);
 
                 nodes [ curNode.title ] = curNode;
             }

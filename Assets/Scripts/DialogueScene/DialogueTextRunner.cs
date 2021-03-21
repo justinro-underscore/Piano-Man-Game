@@ -11,8 +11,10 @@ public class DialogueTextRunner : MonoBehaviour
     public TMP_Text choicesText;
     public TMP_Text dialogueText;
 
-    public Camera m_Camera;
-    
+    public Camera mainCamera;
+    public GameObject choicesBox;
+    public GameObject forwardText;
+
     public delegate void NodeSelectedHandler( int index );
     public event NodeSelectedHandler onSelectedChoice;
 
@@ -27,6 +29,9 @@ public class DialogueTextRunner : MonoBehaviour
     [Range(0, 0.5f)]
     [SerializeField]
     private float choicesTypingSpeed = 0.02f;
+    [Range(0, 1)]
+    [SerializeField]
+    private float blinkSpeed = 0.5f;
 
     private bool skip = false;
     private bool ready = false;
@@ -100,24 +105,38 @@ public class DialogueTextRunner : MonoBehaviour
     }
 
     private IEnumerator TypeChoices() {
-        foreach (List<TextSnippet> choiceSnippet in choicesSnippets) {
-            foreach (TextSnippet snippet in  choiceSnippet) {
-                if (snippet.tag) {
-                    choicesText.text += snippet.text;
-                }
-                else {
-                    foreach (char letter in snippet.text.ToCharArray()) {
-                        choicesText.text += letter;
-                        if (!skip && letter != ' ') {
-                            yield return new WaitForSeconds(choicesTypingSpeed);
+        bool hasChoices = choicesSnippets.Count > 0;
+        if (hasChoices) {
+            choicesBox.SetActive(true);
+            foreach (List<TextSnippet> choiceSnippet in choicesSnippets) {
+                foreach (TextSnippet snippet in  choiceSnippet) {
+                    if (snippet.tag) {
+                        choicesText.text += snippet.text;
+                    }
+                    else {
+                        foreach (char letter in snippet.text.ToCharArray()) {
+                            choicesText.text += letter;
+                            if (!skip && letter != ' ') {
+                                yield return new WaitForSeconds(choicesTypingSpeed);
+                            }
                         }
                     }
                 }
+                choicesText.text += "\n";
             }
-            choicesText.text += "\n";
         }
 
         ready = true;
+        if (!hasChoices) {
+            StartCoroutine(BlinkForward());
+        }
+    }
+
+    private IEnumerator BlinkForward() {
+        while (ready) {
+            forwardText.SetActive(!forwardText.activeSelf);
+            yield return new WaitForSeconds(blinkSpeed);
+        }
     }
     
     void Update() {
@@ -126,7 +145,7 @@ public class DialogueTextRunner : MonoBehaviour
 
             if (ready) {
                 if (choicesSnippets.Count > 0) {
-                    int index = TMP_TextUtilities.FindIntersectingLink(choicesText, Input.mousePosition, m_Camera);
+                    int index = TMP_TextUtilities.FindIntersectingLink(choicesText, Input.mousePosition, mainCamera);
                     if (index > -1) {
                         onSelectedChoice(index);
                     }
@@ -145,5 +164,8 @@ public class DialogueTextRunner : MonoBehaviour
 
         dialogueSnippets = new List<TextSnippet>();
         choicesSnippets = new List<List<TextSnippet>>();
+
+        choicesBox.SetActive(false);
+        forwardText.SetActive(false);
     }
 }

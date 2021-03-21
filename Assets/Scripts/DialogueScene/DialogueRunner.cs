@@ -33,9 +33,12 @@ public class DialogueRunner : MonoBehaviour
         }
 
         List<string> responses = new List<string>();
-        foreach (Response response in newNode.responses) {
-            responses.Add(response.displayText);
+        if (newNode.NeedsResponse()) {
+            foreach (Response response in newNode.responses) {
+                responses.Add(response.displayText);
+            }
         }
+
         textRunner.Init("Bartender John", "f00", newNode.text, responses);
     }
 }
