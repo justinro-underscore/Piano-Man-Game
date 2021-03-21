@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using static DialogueObject;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using System;
 using System.Runtime.InteropServices;
 
-public class DialogueRunner : MonoBehaviour
-{
+public class DialogueRunner : MonoBehaviour {
     DialogueController controller;
     DialogueTextRunner textRunner;
 
@@ -28,7 +28,7 @@ public class DialogueRunner : MonoBehaviour
 
     private void OnNodeEntered( Node newNode ) {
         if (newNode.IsEndNode()) {
-            Debug.Log("Done!");
+            ExitDialogue();
             return;
         }
 
@@ -39,6 +39,10 @@ public class DialogueRunner : MonoBehaviour
             }
         }
 
-        textRunner.Init("Bartender John", "f00", newNode.text, responses);
+        textRunner.Init(PersistentData.data.patronName, "f00", newNode.text, responses);
+    }
+
+    public void ExitDialogue() {
+        SceneManager.UnloadSceneAsync("DialogueScene");
     }
 }
