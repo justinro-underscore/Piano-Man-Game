@@ -15,7 +15,7 @@ public class ScenesRunner : MonoBehaviour {
     public delegate void CloseDialogueHandler(bool completed);
     public event CloseDialogueHandler onCloseDialogue;
 
-    void Start() {
+    void Awake() {
         if (instance == null) {
             instance = this;
             currScene = "BarScene";
