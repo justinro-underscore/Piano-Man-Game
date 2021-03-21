@@ -1,0 +1,56 @@
+:: StoryTitle
+Piano Man Night 1
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: JOHN - Start[START]
+Hello <color=#f00>Bill</color>. How are you doing today?
+
+I'm good [[JOHN - Good]]
+I'll be honest with you, I'm not doin' so well [[JOHN - Bad]]
+I'm doin' <color=#0f0>fantastic</color>![[JOHN - Great]]
+
+:: JOHN - Good
+Hey that's great to hear!
+
+[[JOHN - Good2]]
+
+:: JOHN - Bad
+Oof, I'm sorry to hear that
+
+[[End]]
+
+:: JOHN - Great
+Okay take it down a notch there <i>guy</i>.
+I got some information for ya...
+
+Oh yeah?[[JOHN - Info]]
+Back [[JOHN - Start]]
+
+:: JOHN - Info
+You <b>dumb</b>
+
+Continue [[JOHN - Info2]]
+End [[End]]
+
+:: End[END]
+Double-click this passage to edit it.
+
+:: JOHN - Good2
+Okay I'm done speaking
+
+Okay [[End]]
+
+:: JOHN - Info2
+Oh you're still here?
+
+Yeah [[JOHN - Info3]]
+
+:: JOHN - Info3
+Oh, leave then.
+
+Bye [[End]]
