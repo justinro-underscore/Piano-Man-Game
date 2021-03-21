@@ -14,19 +14,19 @@ public class Patron : MonoBehaviour {
     }
 
     void OnMouseEnter() {
-        if (ScenesRunner.instance.currScene.Equals("BarScene") && selectable) {
+        if (GameRunner.instance.currScene.Equals("BarScene") && selectable) {
             transform.localScale = new Vector3(1.1f, 1.1f, 1);
         }
     }
 
     void OnMouseExit() {
-        if (ScenesRunner.instance.currScene.Equals("BarScene") && selectable) {
+        if (GameRunner.instance.currScene.Equals("BarScene") && selectable) {
             transform.localScale = new Vector3(1, 1, 1);
         }
     }
 
     void OnMouseDown() {
-        if (ScenesRunner.instance.currScene.Equals("BarScene") && selectable) {
+        if (GameRunner.instance.currScene.Equals("BarScene") && selectable) {
             transform.localScale = new Vector3(1, 1, 1);
             onOpenDialogue(this);
         }

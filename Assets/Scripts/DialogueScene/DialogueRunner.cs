@@ -38,10 +38,10 @@ public class DialogueRunner : MonoBehaviour {
             }
         }
 
-        textRunner.Init(ScenesRunner.instance.data.patronName, "f00", newNode.text, responses);
+        textRunner.Init(GameRunner.instance.data.patronName, "f00", newNode.text, responses);
     }
 
     public void ExitDialogue(bool completed) {
-        ScenesRunner.instance.CloseDialogueScene(completed);
+        GameRunner.instance.CloseDialogueScene(completed);
     }
 }

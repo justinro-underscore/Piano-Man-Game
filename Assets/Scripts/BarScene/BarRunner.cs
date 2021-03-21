@@ -9,7 +9,7 @@ public class BarRunner : MonoBehaviour {
     private Patron selectedPatron = null;
 
     private void Start() {
-        ScenesRunner.instance.onCloseDialogue += OnCloseDialogue;
+        GameRunner.instance.onCloseDialogue += OnCloseDialogue;
         foreach (Patron patron in patronsContainer.GetComponentsInChildren(typeof(Patron))) {
             patron.onOpenDialogue += OnOpenDialogue;
         }
@@ -18,7 +18,7 @@ public class BarRunner : MonoBehaviour {
     private void OnOpenDialogue(Patron patron) {
         selectedPatron = patron;
         overlay.color = new Color(0, 0, 0, 0.5f);
-        ScenesRunner.instance.OpenDialogueScene(patron.patronName);
+        GameRunner.instance.OpenDialogueScene(patron.patronName);
     }
 
     private void OnCloseDialogue(bool completed) {

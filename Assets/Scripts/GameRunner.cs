@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static DialogueObject;
 
-public class ScenesRunner : MonoBehaviour {
-    public static ScenesRunner instance = null;
+public class GameRunner : MonoBehaviour {
+    public static GameRunner instance = null;
     public string currScene = null;
 
     public struct PersistentData {
         public string patronName;
+        public List<Dialogue> dialogues;
     }
     public PersistentData data = new PersistentData();
 
