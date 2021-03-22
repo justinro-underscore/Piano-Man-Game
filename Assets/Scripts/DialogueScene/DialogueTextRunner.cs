@@ -48,15 +48,21 @@ public class DialogueTextRunner : MonoBehaviour
     private List<TextSnippet> dialogueSnippets = new List<TextSnippet>();
     private List<List<TextSnippet>> choicesSnippets = new List<List<TextSnippet>>();
 
-    public void Init(string patronName, string patronNameColor, string dialogue, List<string> choices) {
-        Clear();
+    public void Init(Constants.Character character) {
+        SetPatronName(character);
+    }
 
-        this.patronName = patronName;
-        this.patronNameColor = patronNameColor;
+    private void SetPatronName(Constants.Character character) {
+        string patronName = Constants.characterNames[character];
+        string patronColor = Constants.characterColor[character];
+        nameText.text = "<color=#" + patronColor + ">" + patronName + "</color>";
+    }
+
+    public void SetDialogue(string dialogue, List<string> choices) {
+        Clear(false);
+
         this.choices = choices;
         this.dialogue = dialogue;
-
-        SetPatronName();
 
         string[] dialogueSnippetsArr = Regex.Split(dialogue, @"(</?[^>]+>)");
         foreach (string snippet in dialogueSnippetsArr) {
@@ -78,10 +84,6 @@ public class DialogueTextRunner : MonoBehaviour
         ready = false;
         skip = false;
         StartCoroutine(TypeDialogue());
-    }
-
-    private void SetPatronName() {
-        nameText.text = "<color=#" + patronNameColor + ">" + patronName + "</color>";
     }
 
     private IEnumerator TypeDialogue() {
@@ -157,8 +159,10 @@ public class DialogueTextRunner : MonoBehaviour
         }
     }
 
-    private void Clear() {
-        nameText.text = "";
+    private void Clear(bool clearName) {
+        if (clearName) {
+            nameText.text = "";
+        }
         choicesText.text = "";
         dialogueText.text = "";
 

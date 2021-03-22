@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Constants {
-    public enum Characters {
+    public enum Character {
         BARTENDER_JOHN,
         CHRISTOPHER_FLETCHING,
         JENNIFER,
@@ -12,12 +12,30 @@ public class Constants {
         EUGENE
     };
 
-    static public IDictionary<string, Characters> characters = new Dictionary<string, Characters>() {
-        {"JOHN", Characters.BARTENDER_JOHN},
-        {"CHRIS", Characters.CHRISTOPHER_FLETCHING},
-        {"JEN", Characters.JENNIFER},
-        {"DAVY", Characters.DAVY},
-        {"PAUL", Characters.PAUL},
-        {"GENE", Characters.EUGENE}
+    static public IDictionary<string, Character> characters = new Dictionary<string, Character>() {
+        {"JOHN", Character.BARTENDER_JOHN},
+        {"CHRIS", Character.CHRISTOPHER_FLETCHING},
+        {"JEN", Character.JENNIFER},
+        {"DAVY", Character.DAVY},
+        {"PAUL", Character.PAUL},
+        {"GENE", Character.EUGENE}
+    };
+
+    static public IDictionary<Character, string> characterNames = new Dictionary<Character, string>() {
+        {Character.BARTENDER_JOHN, "Bartender John"},
+        {Character.CHRISTOPHER_FLETCHING, "Christopher Fletching"},
+        {Character.JENNIFER, "Jennifer"},
+        {Character.DAVY, "Davy"},
+        {Character.PAUL, "Paul"},
+        {Character.EUGENE, "Eugene"}
+    };
+
+    static public IDictionary<Character, string> characterColor = new Dictionary<Character, string>() {
+        {Character.BARTENDER_JOHN, "f00"},
+        {Character.CHRISTOPHER_FLETCHING, "ff0"},
+        {Character.JENNIFER, "0f0"},
+        {Character.DAVY, "0ff"},
+        {Character.PAUL, "00f"},
+        {Character.EUGENE, "f0f"}
     };
 }

@@ -19,6 +19,8 @@ public class DialogueRunner : MonoBehaviour {
         controller.InitializeDialogue(GameRunner.instance.data.patronDialogue);
 
         textRunner.onSelectedChoice += OnNodeSelected;
+        Constants.Character character = Constants.characters[GameRunner.instance.data.patronDialogue.character];
+        textRunner.Init(character);
     }
 
     private void OnNodeSelected( int indexChosen ) {
@@ -38,7 +40,7 @@ public class DialogueRunner : MonoBehaviour {
             }
         }
 
-        textRunner.Init("TODO", "f00", newNode.text, responses);
+        textRunner.SetDialogue(newNode.text, responses);
     }
 
     public void ExitDialogue(bool completed) {
