@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Adapted from http://www.mrventures.net/all-tutorials/converting-a-twine-story-to-unity
+ * https://www.youtube.com/watch?v=cmafUgj1cu8
+ */
 public class DialogueObject {
     private const string kStart = "START";
     private const string kEnd = "END";
@@ -37,29 +41,42 @@ public class DialogueObject {
     }
 
     public class Dialogue {
-        string title;
-        Dictionary<string, Node> nodes;
-        string titleOfStartNode;
-        public Dialogue( TextAsset twineText ) {
+        public string character;
+        public Dictionary<string, Node> nodes;
+        public string titleOfStartNode;
+
+        public Dialogue(string characterName) {
+            character = characterName;
             nodes = new Dictionary<string, Node>();
-            ParseTwineText( twineText );
         }
 
-        public Node GetNode( string nodeTitle ) {
-            return nodes [ nodeTitle ];
+        public Node GetNode(string nodeTitle) {
+            return nodes[nodeTitle];
         }
 
         public Node GetStartNode() {
-            UnityEngine.Assertions.Assert.IsNotNull( titleOfStartNode );
-            return nodes [ titleOfStartNode ];
+            UnityEngine.Assertions.Assert.IsNotNull(titleOfStartNode);
+            return nodes[titleOfStartNode];
+        }
+    }
+
+    public class DialogueContainer {
+        public Dictionary<string, Dialogue> dialogues;
+
+        public DialogueContainer(TextAsset twineText) {
+            dialogues = new Dictionary<string, Dialogue>();
+            ParseTwineText(twineText);
         }
 
-        public void ParseTwineText( TextAsset twineText ) {
-            string text = twineText.text;
-            string[] nodeData = text.Split(new string[] { "::" }, StringSplitOptions.None);
+        public void ParseTwineText(TextAsset twineText) {
+            List<string> validNames = new List<string>(Constants.characters.Keys);
 
+            string text = twineText.text;
+            string[] nodeData = text.Split(new string[] {"::"}, StringSplitOptions.None);
+
+            Node endNode = null;
             const int kIndexOfContentStart = 4;
-            for ( int i = 0; i<nodeData.Length; i++ ) {
+            for ( int i = 0; i < nodeData.Length; i++ ) {
                 if ( i < kIndexOfContentStart )
                     continue;
                 Node curNode = new Node();
@@ -87,7 +104,16 @@ public class DialogueObject {
 
                 curNode.responses = new List<Response>();
 
-                if (!tags.Contains( kEnd )) {
+                string character = null;
+                string titleOfStartNode = null;
+                bool isEndNode = tags.Contains(kEnd);
+
+                if (!isEndNode) {
+                    string[] titleSegments = title.Split(new string[]{" - "}, StringSplitOptions.None);
+                    UnityEngine.Assertions.Assert.IsTrue(titleSegments.Length == 2);
+                    UnityEngine.Assertions.Assert.IsTrue(validNames.Contains(titleSegments[0]));
+                    character = titleSegments[0];
+
                     int startOfResponses = -1;
                     int startOfResponseDestinations = currLineText.IndexOf( "[[" );
                     bool lastNode = (startOfResponseDestinations == -1);
@@ -102,8 +128,7 @@ public class DialogueObject {
 
                     curNode.text = messsageText;
 
-                    if ( curNode.tags.Contains( kStart ) ) {
-                        UnityEngine.Assertions.Assert.IsTrue( null == titleOfStartNode ); // TODO Remove to make way for multiple stories
+                    if (curNode.tags.Contains(kStart)) {
                         titleOfStartNode = curNode.title;
                     }
 
@@ -133,6 +158,9 @@ public class DialogueObject {
                     }
                     curNode.responses.Reverse();
                 }
+                else {
+                    endNode = curNode;
+                }
 
                 // string tt = curNode.title + "\n" + curNode.text + "\n";
                 // foreach (string t in curNode.tags) {
@@ -143,7 +171,19 @@ public class DialogueObject {
                 // }
                 // Debug.Log(tt);
 
-                nodes [ curNode.title ] = curNode;
+                if (character != null) {
+                    if (!dialogues.ContainsKey(character)) {
+                        dialogues.Add(character, new Dialogue(character));
+                    }
+                    dialogues[character].nodes[curNode.title] = curNode;
+                    if (titleOfStartNode != null) {
+                        dialogues[character].titleOfStartNode = titleOfStartNode;
+                    }
+                }
+            }
+
+            foreach (string character in dialogues.Keys) {
+                dialogues[character].nodes[endNode.title] = endNode;
             }
         }
     }

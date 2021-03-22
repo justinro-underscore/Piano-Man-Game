@@ -16,7 +16,7 @@ public class DialogueRunner : MonoBehaviour {
         textRunner = GetComponent<DialogueTextRunner>();
 
         controller.onEnteredNode += OnNodeEntered;
-        controller.InitializeDialogue();
+        controller.InitializeDialogue(GameRunner.instance.data.patronDialogue);
 
         textRunner.onSelectedChoice += OnNodeSelected;
     }
@@ -38,7 +38,7 @@ public class DialogueRunner : MonoBehaviour {
             }
         }
 
-        textRunner.Init(GameRunner.instance.data.patronName, "f00", newNode.text, responses);
+        textRunner.Init("TODO", "f00", newNode.text, responses);
     }
 
     public void ExitDialogue(bool completed) {

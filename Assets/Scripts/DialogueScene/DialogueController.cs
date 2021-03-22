@@ -9,7 +9,6 @@ using static DialogueObject;
  */
 public class DialogueController : MonoBehaviour {
 
-    [SerializeField] TextAsset twineText = null;
     Dialogue curDialogue;
     Node curNode;
 
@@ -20,10 +19,11 @@ public class DialogueController : MonoBehaviour {
         return curNode;
     }
 
-    public void InitializeDialogue() {
-        curDialogue = new Dialogue( twineText );
-        curNode = curDialogue.GetStartNode();
-        onEnteredNode( curNode );
+    public void InitializeDialogue(Dialogue patronDialogue) {
+        curDialogue = patronDialogue;
+        string startNodeTitle = GameRunner.instance.data.dialogueIndex[patronDialogue.character];
+        curNode = patronDialogue.GetNode(startNodeTitle);
+        onEnteredNode(curNode);
     }
 
     public List<Response> GetCurrentResponses() {

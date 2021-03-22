@@ -257,7 +257,7 @@ PrefabInstance:
     - target: {fileID: 3644172037421647427, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
       propertyPath: patronName
-      value: Paul
+      value: JEN
       objectReference: {fileID: 0}
     - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
@@ -643,7 +643,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd0d34a6ebe5df4784e735ddd54de72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currNight: 0
   currScene: 
+  nightInfos:
+  - {fileID: 11400000, guid: a2b3b5a8572a7e14fa0e71ac7f6b7f21, type: 2}
 --- !u!4 &1178532236
 Transform:
   m_ObjectHideFlags: 0
@@ -907,7 +910,7 @@ PrefabInstance:
     - target: {fileID: 3644172037421647427, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
       propertyPath: patronName
-      value: Paul
+      value: CHRIS
       objectReference: {fileID: 0}
     - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
@@ -996,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 3644172037421647427, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}
       propertyPath: patronName
-      value: Bartender Joe
+      value: JOHN
       objectReference: {fileID: 0}
     - target: {fileID: 3644172037421647428, guid: 6a6cff72ebac60048914385e4350dce3,
         type: 3}

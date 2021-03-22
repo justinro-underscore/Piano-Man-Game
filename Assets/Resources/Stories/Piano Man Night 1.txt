@@ -1,5 +1,5 @@
 :: StoryTitle
-Piano Man Night 1
+Piano Man Demo 2
 
 :: UserScript[script]
 
@@ -7,50 +7,42 @@ Piano Man Night 1
 :: UserStylesheet[stylesheet]
 
 
-:: JOHN - Start[START]
-Hello <color=#f00>Bill</color>. How are you doing today?
+:: JOHN - Bartender John Start[START]
+Morning <color=#00f>Bill</color>! How are you doing?
 
-I'm good [[JOHN - Good]]
-I'll be honest with you, I'm not doin' so well [[JOHN - Bad]]
-I'm doin' <color=#0f0>fantastic</color>![[JOHN - Great]]
+I'm good! [[JOHN - Good]]
+I'm <i>bad</i>. [[JOHN - Bad]]
+Could be better. [[JOHN - Meh]]
+
+:: CHRIS - Christopher Fletching Start[START]
+How are you talking to me right now?
+
+I'm not [[END]]
 
 :: JOHN - Good
-Hey that's great to hear!
+That's good to hear.
 
-[[JOHN - Good2]]
+[[JOHN - Good 2]]
 
 :: JOHN - Bad
-Oof, I'm sorry to hear that
+I'm sorry to hear that.
 
-[[End]]
+[[END]]
 
-:: JOHN - Great
-Okay take it down a notch there <i>guy</i>.
-I got some information for ya...
+:: JOHN - Meh
+Yeah, same man.
 
-Oh yeah?[[JOHN - Info]]
-Back [[JOHN - Start]]
+[[END]]
 
-:: JOHN - Info
-You <b>dumb</b>
+:: JOHN - Good 2
+Okay, talk to you later.
 
-Continue [[JOHN - Info2]]
-End [[End]]
+Bye! [[END]]
 
-:: End[END]
+:: END[END]
 Double-click this passage to edit it.
 
-:: JOHN - Good2
-Okay I'm done speaking
+:: JEN - Jennifer[START]
+Can't talk right now, a little busy.
 
-Okay [[End]]
-
-:: JOHN - Info2
-Oh you're still here?
-
-Yeah [[JOHN - Info3]]
-
-:: JOHN - Info3
-Oh, leave then.
-
-Bye [[End]]
+[[END]]
