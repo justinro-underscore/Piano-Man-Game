@@ -1,11 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using static DialogueObject;
-using UnityEngine.Events;
-using System;
-using System.Runtime.InteropServices;
 
 public class DialogueRunner : MonoBehaviour {
     DialogueController controller;
