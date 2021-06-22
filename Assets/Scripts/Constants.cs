@@ -36,4 +36,21 @@ public class Constants {
         {Character.PAUL, "00f"},
         {Character.EUGENE, "f0f"}
     };
+
+    public enum DialogueElementType {
+        ACTION,
+        BIO,
+        MEMORY
+    };
+
+    static public IDictionary<DialogueElementType, string> dialogueElementColor = new Dictionary<DialogueElementType, string>() {
+        {DialogueElementType.ACTION, "f00"},
+        {DialogueElementType.BIO, "0f0"},
+        {DialogueElementType.MEMORY, "00f"}
+    };
+
+    public enum ResponseElementType {
+        LOCKED,
+        KICK
+    };
 }

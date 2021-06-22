@@ -11,14 +11,64 @@ public class DialogueObject {
     private const string kNightStart = "NIGHT-START";
     private const string kStart = "START";
     private const string kEnd = "END";
+    private static Regex elementRegex = new Regex(@"<([a-z]+)=?([^>]+)?>([^<]*)</([a-z]+)>");
+    private static Regex responseRegex = new Regex(@"(.*)\[\[([^\]]+)\]\](.*)");
 
-    public struct Response {
+    public class Response {
         public string displayText;
         public string destinationNode;
+        public string lockedKey;
+        public bool shouldKick;
 
-        public Response( string display, string destination ) {
+        public Response(string input) {
+            string display = ParseResponseText(input);
+            ParseDisplayText(display);
+        }
+
+        private string ParseResponseText(string input) {
+            GroupCollection groups = responseRegex.Match(input).Groups;
+            UnityEngine.Assertions.Assert.AreEqual(4, groups.Count);
+            destinationNode = groups[2].Value;
+            return (groups[1].Value + groups[3].Value).Trim();
+        }
+
+        private void ParseDisplayText(string rawDisplayText) {
+            lockedKey = null;
+            shouldKick = false;
+
+            string display = rawDisplayText;
+            GroupCollection groups = elementRegex.Match(display).Groups;
+            while (groups.Count != 1) {
+                UnityEngine.Assertions.Assert.AreEqual(5, groups.Count);
+                string elementTypeOpening = groups[1].Value;
+                string elementTypeClosing = groups[4].Value;
+                UnityEngine.Assertions.Assert.AreEqual(elementTypeOpening, elementTypeClosing);
+
+                Constants.ResponseElementType elementType;
+                Enum.TryParse(elementTypeOpening.ToUpper(), out elementType);
+                if (elementType == Constants.ResponseElementType.LOCKED) {
+                    lockedKey = groups[2].Value.Trim();
+                    UnityEngine.Assertions.Assert.IsTrue(lockedKey.Length > 0);
+                }
+                else if (elementType == Constants.ResponseElementType.KICK) {
+                    shouldKick = true;
+                }
+
+                display = groups[3].Value.Trim();
+                groups = elementRegex.Match(display).Groups;
+            }
+
             displayText = display;
-            destinationNode = destination;
+        }
+    }
+
+    public struct Element {
+        public Constants.DialogueElementType type;
+        public string key;
+
+        public Element(string elementText, string key) {
+            Enum.TryParse(elementText.ToUpper(), out type);
+            this.key = key;
         }
     }
 
@@ -27,6 +77,7 @@ public class DialogueObject {
         public string text;
         public List<string> tags;
         public List<Response> responses;
+        public List<Element> elements;
 
         internal bool NeedsResponse() {
             if (responses.Count != 1) {
@@ -142,27 +193,10 @@ public class DialogueObject {
                     // With Message Format: "\n Message[[Response One]]"
                     // Message-less Format: "\n [[Response One]]"
                     List<string> responseData = new List<string>(responseText.Split( new string [] { "\n" }, StringSplitOptions.None ));
-                    for ( int k = responseData.Count-1; k >= 0; k-- ) { // Go backwards to remove potential duds
-                        string curResponseData = responseData[k];
-
-                        if ( string.IsNullOrEmpty( curResponseData ) ) {
-                            responseData.RemoveAt( k );
-                            continue;
-                        }
-
-                        // If message-less, then destination is the message
-                        Response curResponse = new Response();
-                        int destinationStart = curResponseData.IndexOf( "[[");
-                        int destinationEnd = curResponseData.IndexOf( "]]");
-                        string destination = curResponseData.Substring(destinationStart + 2, (destinationEnd - destinationStart)-2);
-                        curResponse.destinationNode = destination;
-                        if ( destinationStart == 0 )
-                            curResponse.displayText = destination;
-                        else
-                            curResponse.displayText = curResponseData.Substring( 0, destinationStart );
-                        curNode.responses.Add( curResponse );
+                    foreach (string responseDataText in responseData) {
+                        Response response = new Response(responseDataText);
+                        curNode.responses.Add(response);
                     }
-                    curNode.responses.Reverse();
                 }
                 else {
                     endNode = curNode;

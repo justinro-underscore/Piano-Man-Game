@@ -52,8 +52,8 @@ What's up Bill?
 
 How old are you? [[JEN - Old]]
 Do you have any pets? [[JEN - Pets]]
-<locked=petName>What's the name of your pet?<locked/>[[JEN - Pet Name (Insight Locked)]]
-<locked=book>What's your favorite book?<locked/>[[JEN - Book Name (Insight Locked)]]
+<locked=petName>What's the name of your pet?</locked>[[JEN - Pet Name (Insight Locked)]]
+<locked=book>What's your favorite book?</locked>[[JEN - Book Name (Insight Locked)]]
 Finish [[END]]
 
 :: JEN - Old {"position":"698,700","size":"100,100"}
