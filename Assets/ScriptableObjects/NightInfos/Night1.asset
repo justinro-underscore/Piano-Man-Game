@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Night1
   m_EditorClassIdentifier: 
   nightNumber: 0
-  twineText: {fileID: 4900000, guid: 26d9877836de13c43b0bf5ab16044f67, type: 3}
+  twineText: {fileID: 4900000, guid: c3faa651e9169bf46952c2cbb0506bf0, type: 3}
   characters:
   - JOHN
   - JEN

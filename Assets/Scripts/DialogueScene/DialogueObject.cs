@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 /**
@@ -7,6 +8,7 @@ using UnityEngine;
  * https://www.youtube.com/watch?v=cmafUgj1cu8
  */
 public class DialogueObject {
+    private const string kNightStart = "NIGHT-START";
     private const string kStart = "START";
     private const string kEnd = "END";
 
@@ -70,11 +72,11 @@ public class DialogueObject {
         public void ParseTwineText(TextAsset twineText) {
             List<string> validNames = new List<string>(Constants.characters.Keys);
 
-            string text = twineText.text;
+            string text = prepText(twineText.text);
             string[] nodeData = text.Split(new string[] {"::"}, StringSplitOptions.None);
 
             Node endNode = null;
-            const int kIndexOfContentStart = 4;
+            const int kIndexOfContentStart = 5;
             for ( int i = 0; i < nodeData.Length; i++ ) {
                 if ( i < kIndexOfContentStart )
                     continue;
@@ -97,9 +99,14 @@ public class DialogueObject {
 
                 // Extract Tags (if any)
                 string tags = tagsPresent
-                    ? currLineText.Substring( titleEnd + 1, (endOfFirstLine - titleEnd)-2)
+                    ? currLineText.Substring( titleEnd + 1, currLineText.IndexOf("]") - titleEnd - 1 )
                     : "";
                 curNode.tags = new List<string>( tags.Split( new string [] { " " }, StringSplitOptions.None ) );
+
+                bool isNightStartNode = tags.Contains(kNightStart);
+                if (isNightStartNode) {
+                    continue;
+                }
 
                 curNode.responses = new List<Response>();
 
@@ -184,6 +191,23 @@ public class DialogueObject {
             foreach (string character in dialogues.Keys) {
                 dialogues[character].nodes[endNode.title] = endNode;
             }
+        }
+
+        private string prepText(string text) {
+            // Remove curly brackets
+            int lastTextLength = text.Length;
+            bool noCurlyBrackets = false;
+            while (!noCurlyBrackets) {
+                text = new Regex(" *{[^{}]*} *").Replace(text, "");
+                if (lastTextLength == text.Length) {
+                    noCurlyBrackets = true;
+                }
+                else {
+                    lastTextLength = text.Length;
+                }
+            }
+
+            return text;
         }
     }
 }

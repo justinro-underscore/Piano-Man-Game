@@ -1,0 +1,114 @@
+:: StoryTitle
+Piano Man Demo 2
+
+:: StoryData
+{
+ "ifid": "8C47DA5D-F836-41DD-A5F2-7A982F887B2E",
+ "format": "Entweedle",
+ "format-version": "1.0.3",
+ "startnode": "16",
+ "zoom": "1",
+ "start": "Start",
+ "tag-colors": {
+  "END": "blue",
+  "START": "yellow",
+  "KICK": "red"
+ }
+}
+
+:: UserScript [script]
+
+
+:: UserStylesheet [stylesheet]
+
+
+:: JEN - Start [START] {"position":"726,361","size":"100,100"}
+I'm ok, just trying my best, that buisnessman over there is giving me a hard time, but nothing new. 
+
+I'm sorry to hear that [[JEN - Hub]]
+
+:: JEN - Pets {"position":"824,694.7999877929688","size":"100,100"}
+<bio=petName>I have a dog</bio>
+
+Good to know[[JEN - Hub]]
+
+:: JEN - Pet Name (Insight Locked) {"position":"1016,707","size":"100,100"}
+<bio=cat>My pooch's name is Cat</bio>. Confusing right?
+
+[[JEN - Hub]]
+
+:: CHRIS - Start [START] {"position":"583,361.79998779296875","size":"100,100"}
+Hi, my name is <bio=name>Chris</bio>. Oh wanna know something about Jen?
+
+Sure, what's that? [[CHRIS - 2]]
+
+:: CHRIS - 2 {"position":"551,540.7999877929688","size":"100,100"}
+Jen loves books, but no one ever asks her about it. Go ask what her favorite book is, she'll love it.
+
+<kick>[[CHRIS - Help 1]]</kick>
+
+:: JEN - Hub {"position":"747,499.79998779296875","size":"100,100"}
+What's up Bill?
+
+How old are you? [[JEN - Old]]
+Do you have any pets? [[JEN - Pets]]
+<locked=petName>What's the name of your pet?<locked/>[[JEN - Pet Name (Insight Locked)]]
+<locked=book>What's your favorite book?<locked/>[[JEN - Book Name (Insight Locked)]]
+Finish [[END]]
+
+:: JEN - Old {"position":"698,700","size":"100,100"}
+I'd rather not talk about that.
+
+[[JEN - Hub]]
+
+:: JEN - Book Name (Insight Locked) {"position":"1153,703.7999877929688","size":"100,100"}
+Thanks for asking me! My favorite book is Catch 22
+
+Thanks![[JEN - Hub]]
+
+:: CHRIS - Help 1 {"position":"551,690.7999877929688","size":"100,100"}
+Hey by the way, could you help me out?
+
+<kick>Nope[[CHRIS - Help 1]]</kick>
+Sure, what's up?[[CHRIS - Help 2]]
+
+:: CHRIS - Help 2 {"position":"551,840.7999877929688","size":"100,100"}
+<action=askPetName><bio=petName>I know Jen has a dog</bio></action>, but I can't remember what its name is. Can you ask her for me?
+
+Why don't you ask her?[[CHRIS - You Ask Her]]
+<kick>Sure, I'll go ask[[CHRIS - Help 2]]</kick>
+<locked=cat>Her dog's name is Cat[[CHRIS - Cat]]</locked>
+
+:: CHRIS - You Ask Her {"position":"401,990.7999877929688","size":"100,100"}
+That would be so awkward! Can you please just do it for me?
+
+No.[[END]]
+Sure, I'll go ask her[[CHRIS - Thank you]]
+
+:: CHRIS - Cat {"position":"701,990.7999877929688","size":"100,100"}
+Of course, <memory>how could I forget...</memory>
+
+...[[CHRIS - End]]
+
+:: END [END] {"position":"705,1234.7999877929688","size":"100,100"}
+
+
+:: CHRIS - Thank you {"position":"565,997.7999877929688","size":"100,100"}
+Thanks so much!
+
+<kick>[[CHRIS - Help 2]]</kick>
+
+:: CHRIS - End {"position":"696,1108.7999877929688","size":"100,100"}
+Thanks, that really brings me back. I owe ya one.
+
+[[END]]
+
+:: Start [NIGHT-START] {"position":"601,176","size":"100,100"}
+[[CHRIS - Start]]
+[[JEN - Start]]
+[[JOHN - Start]]
+
+:: JOHN - Start [START] {"position":"1417,370","size":"100,100"}
+Don't talk to me.
+
+Okay, sorry[[END]]
