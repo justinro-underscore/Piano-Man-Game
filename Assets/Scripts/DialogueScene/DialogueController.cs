@@ -11,7 +11,7 @@ public class DialogueController : MonoBehaviour {
     Dialogue curDialogue;
     Node curNode;
 
-    public delegate void NodeEnteredHandler( Node node );
+    public delegate void NodeEnteredHandler(Node node, bool forceExit);
     public event NodeEnteredHandler onEnteredNode;
 
     public Node GetCurrentNode() {
@@ -22,7 +22,7 @@ public class DialogueController : MonoBehaviour {
         curDialogue = patronDialogue;
         string startNodeTitle = GameRunner.instance.data.dialogueIndex[patronDialogue.character];
         curNode = patronDialogue.GetNode(startNodeTitle);
-        onEnteredNode(curNode);
+        onEnteredNode(curNode, false);
     }
 
     public List<Response> GetCurrentResponses() {
@@ -30,9 +30,11 @@ public class DialogueController : MonoBehaviour {
     }
 
     public void ChooseResponse( int responseIndex ) {
-        string nextNodeID = curNode.responses[responseIndex].destinationNode;
+        Response response = curNode.responses[responseIndex];
+        string nextNodeID = response.destinationNode;
         Node nextNode = curDialogue.GetNode(nextNodeID);
+        GameRunner.instance.data.dialogueIndex[curDialogue.character] = nextNode.title;
         curNode = nextNode;
-        onEnteredNode( nextNode );
+        onEnteredNode(nextNode, response.shouldKick);
     }
 }

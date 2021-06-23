@@ -18,13 +18,13 @@ public class DialogueRunner : MonoBehaviour {
         textRunner.Init(character);
     }
 
-    private void OnNodeSelected( int indexChosen ) {
+    private void OnNodeSelected(int indexChosen) {
         controller.ChooseResponse( indexChosen );
     }
 
-    private void OnNodeEntered( Node newNode ) {
-        if (newNode.IsEndNode()) {
-            ExitDialogue(true);
+    private void OnNodeEntered(Node newNode, bool forceExit) {
+        if (newNode.IsEndNode() || forceExit) {
+            ExitDialogue(newNode.IsEndNode());
             return;
         }
 

@@ -84,7 +84,7 @@ public class DialogueObject {
                 return true;
             }
             Response response = responses[0];
-            return !response.destinationNode.Equals(response.displayText);
+            return response.displayText.Length > 0;
         }
 
         internal bool IsEndNode() {
